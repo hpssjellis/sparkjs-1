@@ -5,6 +5,10 @@
     <script type="text/javascript" src="spark.js"></script>
 </head>
 <body>
+
+       device ID = <input id="myDeviceIn" type=text placeholder="FredsSparkCore"><br>
+       Access token = <input id="myTokenIn" type=text placeholder="734785623745723462845628346523"><br>
+
 	<div id="buttons">
         <button id="buttonGetStatus">Get Status</button>
         <button id="buttonGetRSSI">Get WiFi Signal</button>
@@ -12,10 +16,12 @@
         <button id="buttonLEDOff">LED OFF</button>
     </div>
     
+    
+    
     <script type="application/javascript">
         var sparkURL="https://api.spark.io/v1/devices/";                //Web address for the Spark API
-        var accessToken="<Your access Token goes here>";                //Access token for your core/app
-        var deviceID="<Your device ID goes here>"                       //Device ID for your device.
+        var accessToken=document.all.myTokenIn.value;                //Access token for your core/app
+        var deviceID=document.all.myDeviceIn.value;                       //Device ID for your device.
 
         var SparkDevice=new SparkAPI(deviceID,accessToken);
         var buttonGetStatus=document.getElementById("buttonGetStatus"); //Get the object that handles the Status button in the page
