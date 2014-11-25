@@ -3,6 +3,7 @@
 var deviceInstance;
 
 function SparkAPI(deviceID,accessToken) {
+    'use strict';
     this.deviceID=deviceID;
     this.name=undefined;
     this.connected=undefined;
@@ -12,8 +13,12 @@ function SparkAPI(deviceID,accessToken) {
     this.sparkURL = "https://api.spark.io/v1/devices/";  //Web address for the Spark API
     this.lastRequestType=undefined;
     
+    //Call the API for a registered variable. Call with nothing to get a basic status response.
+    //Uses the deviceID and accessToken, with an HTTP GET to the Spark server.
+    //variableName => registered Spark device variable name
+    //callback => function to call when response arrives, the callback is passed the result object. ie.. callback(result);
+    //return => void
     this.getVariable=function (variableName,callback) {  
-        'use strict';
         deviceInstance=this;  //This is a kludge to get a pointer into the handler, it's not thread safe!
         var anHttpRequest = new XMLHttpRequest();  //Get an HTTP requestor object from the browser
         if (variableName === undefined) {
@@ -46,8 +51,13 @@ function SparkAPI(deviceID,accessToken) {
         anHttpRequest.send(null);  //Finish the request, when the server responds we will execute the handler function above.
     };
     
-    this.CallFunction = function(functionName, paramString, callback) {
-        'use strict';
+    //Calls the API for a registered Spark function. Uses the deviceID and accessToken
+    //Uses the deviceID and accessToken, with an HTTP POST to the Spark server.
+    //functionName => registered Spark device function name
+    //paramString => A string of text to pass as parameters for the Spark function 
+    //callback => function to call when response arrives, the callback is passed the result object. ie.. callback(result);
+    //return => void
+    this.callFunction = function(functionName, paramString, callback) {
         var url=this.sparkURL+this.deviceID+"/"+functionName;  //Build up the API request URL.
         var params="args="+paramString;              //Build up the parameter string for the POST
         var anHttpRequest = new XMLHttpRequest(); //Get an HTTP requestor object from the browser
