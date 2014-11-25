@@ -30,7 +30,7 @@
         
         var sparkURL="https://api.spark.io/v1/devices/";                //Web address for the Spark API
 
-        var SparkDevice=new SparkAPI(deviceID,accessToken);
+        var SparkDevice=new SparkAPI(document.deviceID,document.accessToken);
         var buttonGetStatus=document.getElementById("buttonGetStatus"); //Get the object that handles the Status button in the page
             buttonGetStatus.onclick=function () {                       //Define what happens on the Status button click
             SparkDevice.getVariable("",onSparkStatus);                  //Get a variable with "" as the name, actually pulls status.
